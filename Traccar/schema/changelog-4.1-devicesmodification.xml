@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd"
+  logicalFilePath="changelog-4.1-devicesmodification">
+
+  <changeSet author="author" id="changelog-4.1-devicesmodification"> 
+    
+     <preConditions onFail="MARK_RAN">
+      <not>
+        <columnExists tableName="tc_devices" columnName="battery" />
+      </not>
+    </preConditions>
+    
+    <addColumn tableName="tc_devices">
+      <column name="battery" type="int"/>
+    </addColumn>
+    
+    <modifyDataType columnName="lastupdate" newDataType="varchar(128)" tableName="tc_devices"/>
+    
+  </changeSet>
+
+</databaseChangeLog>

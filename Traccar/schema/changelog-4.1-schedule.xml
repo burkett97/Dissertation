@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd"
+  logicalFilePath="changelog-4.1-schedule">
+
+  <changeSet author="author" id="changelog-4.1-schedule">
+    
+     <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="tc_schedules" />
+      </not>
+      <not>
+        <columnExists tableName="tc_schedules" columnName="name" />
+      </not>
+    </preConditions>
+    
+     <createTable tableName="tc_schedules">
+      <column name="id" type="INT" autoIncrement="true">
+        <constraints primaryKey="true" />
+      </column>
+      <column name="name" type="VARCHAR(128)">
+      	<constraints nullable="false" />
+      </column>
+      <column name="devices" type="VARCHAR(128)"/>
+      <column name="groups" type="VARCHAR(128)"/>
+      <column name="period" type="VARCHAR(128)"/>
+      <column name="timing" type="VARCHAR(128)"/>
+      <column name="startTime" type="DATETIME">
+        <constraints nullable="false" />
+      </column>
+      <column name="endTime" type="DATETIME">
+        <constraints nullable="false" />
+      </column>
+      <column name="disabled" type="BOOLEAN" defaultValueBoolean="false" />
+    </createTable>
+    
+     <createTable tableName="tc_user_schedule">
+      <column name="userid" type="INT">
+        <constraints nullable="false" />
+      </column>
+      <column name="scheduleid" type="INT">
+        <constraints nullable="false" />
+      </column>
+    </createTable>
+    
+    <addUniqueConstraint tableName= "tc_schedules" columnNames="name" constraintName="tc_schedules_name_uk"/>
+    <addForeignKeyConstraint baseTableName="tc_user_schedule" baseColumnNames="userid" constraintName="fk_user_schedule_userid" referencedTableName="tc_users" referencedColumnNames="id" onDelete="CASCADE" />
+    <addForeignKeyConstraint baseTableName="tc_user_schedule" baseColumnNames="scheduleid" constraintName="fk_user_schedule_groupid" referencedTableName="tc_schedules" referencedColumnNames="id" onDelete="CASCADE" />
+
+  </changeSet>
+
+</databaseChangeLog>

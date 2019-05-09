@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd"
+  logicalFilePath="changelog-4.1-alldevices">
+
+  <changeSet author="author" id="changelog-4.1-alldevices">
+    
+     <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="tc_alldevices" />
+      </not>
+      <not>
+        <columnExists tableName="tc_alldevices" columnName="loc_id" />
+      </not>
+    </preConditions>
+    
+     <createTable tableName="tc_alldevices">
+      <column name="id" type="INT" autoIncrement="true">
+        <constraints primaryKey="true" />
+      </column>
+      <column name="name" type="VARCHAR(128)">
+      	<constraints nullable="false" />
+      </column>
+      <column name="loc_id" type="VARCHAR(128)">
+      	<constraints nullable="false" />
+      </column>
+      <column name="imei" type="VARCHAR(128)">
+      	<constraints nullable="false" />
+      </column>
+    </createTable>
+    
+     <createTable tableName="tc_user_alldevices">
+      <column name="userid" type="INT">
+        <constraints nullable="false" />
+      </column>
+      <column name="deviceid" type="INT">
+        <constraints nullable="false" />
+      </column>
+    </createTable>
+    
+    <addUniqueConstraint tableName= "tc_alldevices" columnNames="loc_id" constraintName="tc_alldevices_locid_uk"/>
+    <addForeignKeyConstraint baseTableName="tc_user_alldevices" baseColumnNames="userid" constraintName="fk_user_alldevices_userid" referencedTableName="tc_users" referencedColumnNames="id" onDelete="CASCADE" />
+    <addForeignKeyConstraint baseTableName="tc_user_alldevices" baseColumnNames="deviceid" constraintName="fk_user_alldevices_deviceid" referencedTableName="tc_alldevices" referencedColumnNames="id" onDelete="CASCADE" />
+
+  </changeSet>
+
+</databaseChangeLog>

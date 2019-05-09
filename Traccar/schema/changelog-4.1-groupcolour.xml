@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd"
+  logicalFilePath="changelog-4.1-groupcolour">
+
+  <changeSet author="author" id="changelog-4.1-groupcolour"> 
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <columnExists tableName="tc_groups" columnName="groupcolour" />
+      </not>
+       <not>
+        <columnExists tableName="tc_devices" columnName="groupcolour" />
+      </not>
+    </preConditions>
+  
+    <addColumn tableName="tc_groups">
+      <column name="groupcolour" type="varchar(128)"/>
+    </addColumn>
+    
+    <addUniqueConstraint tableName= "tc_groups" columnNames="name" constraintName="tc_groups_name_uk"/>
+
+  </changeSet>
+
+</databaseChangeLog>
