@@ -58,31 +58,31 @@ public class Device extends GroupedModel {
         this.status = status;
     }
 
-    private String lastUpdate;
+    private Date lastUpdate;
 
-    // @QueryExtended
-    // public Date getLastUpdate() {
-    //     if (lastUpdate != null) {
-    //         return new Date(lastUpdate.getTime());
-    //     } else {
-    //         return null;
-    //     }
-    // }
-
-    // public void setLastUpdate(Date lastUpdate) {
-    //     if (lastUpdate != null) {
-    //         this.lastUpdate = new Date(lastUpdate.getTime());
-    //     } else {
-    //         this.lastUpdate = null;
-    //     }
-    // }
-    public String getLastUpdate() {
-        return lastUpdate;
+    @QueryExtended
+    public Date getLastUpdate() {
+        if (lastUpdate != null) {
+            return new Date(lastUpdate.getTime());
+        } else {
+            return null;
+        }
     }
 
-    public void setLastUpdate(String lastUpdate) {
-        this.lastUpdate = lastUpdate;
+    public void setLastUpdate(Date lastUpdate) {
+        if (lastUpdate != null) {
+            this.lastUpdate = new Date(lastUpdate.getTime());
+        } else {
+            this.lastUpdate = null;
+        }
     }
+    // public String getLastUpdate() {
+    //     return lastUpdate;
+    // }
+
+    // public void setLastUpdate(String lastUpdate) {
+    //     this.lastUpdate = lastUpdate;
+    // }
 
     private long positionId;
 

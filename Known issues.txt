@@ -1,0 +1,7 @@
+Known Issues:
+
+- If program is closed, schedules have to be reinitialised
+	Reason: Attempted to use schedulers feature of storing schedules in DB however, there were issues with deletion so I removed it
+ 	--> Fix: Add the DB add feature and fix the deletion error
+- The battery, last update and last location on the map don't update when a new entry is added or the battery is modified by the program
+	Potential Reason: Due to the way traccar serves this information and displays it on the Extjs store and map, it only refreshes when the program is shutdown on netbeans and reopened suggesting it is an issue with the way stores refresh 
